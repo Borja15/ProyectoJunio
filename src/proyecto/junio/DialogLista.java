@@ -8,17 +8,19 @@ package proyecto.junio;
 import Clases.Categoria;
 import static Clases.Categoria.listalibros;
 import Clases.GestionLibros;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Borja Andrades
  */
 public class DialogLista extends javax.swing.JDialog {
-
-    GestionLibros librosg1 = new GestionLibros("Harry Potter",293468,true,"Fantasia");
-    GestionLibros librosg2 = new GestionLibros("Return Sherlock Holmes",234789,true,"Misterio");
-    GestionLibros librosg3 = new GestionLibros("Mortadelo y Filemon",2344444,false,"Humor");
-    GestionLibros librosg4 = new GestionLibros("Belen Esteban",666,true,"Autobiografia");
+ 
+    //Posiciones segun el elemento
+   int posicionlistanombre = 0;
+   int posicionlistanumero = 0;
+   int posicionlistad = 0 ;
+   int posicionlistagenero = 0;
     
     /**
      * Creates new form DialogLista
@@ -27,12 +29,19 @@ public class DialogLista extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         añadirObjetosEjemplo();
-        jTextField1.setText(librosg1.getNombre());
-       
-
+        //Añadimos a los campos el primer elemento de la lista
+        jTextFieldNombre.setText(listalibros.get(0).getNombre());
+        jTextFieldNumero.setText(String.valueOf(listalibros.get(0).getNumero()));
+        jCheckBox1.setText(String.valueOf(listalibros.get(0).isDisponible()));
+        jTextFieldGenero.setText(listalibros.get(0).getCategoria());   
     }
 
+    //Metodo que crea 4 objetos y los añade a la lista
     public void añadirObjetosEjemplo(){
+        GestionLibros librosg1 = new GestionLibros("Harry Potter",293468,true,"Fantasia");
+        GestionLibros librosg2 = new GestionLibros("Sherlock Holmes",234789,true,"Misterio");
+        GestionLibros librosg3 = new GestionLibros("Mortadelo y Filemon",2344444,false,"Humor");
+        GestionLibros librosg4 = new GestionLibros("Belen Esteban",666,true,"Autobiografia");
         listalibros.add(librosg1);
         listalibros.add(librosg2);
         listalibros.add(librosg3);
@@ -48,25 +57,34 @@ public class DialogLista extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu = new javax.swing.JPopupMenu();
+        jMenu1 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTextFieldNumero = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jTextFieldGenero = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonLimpiar = new javax.swing.JButton();
+        jButtonSiguiente = new javax.swing.JButton();
+        jButtonAnterior = new javax.swing.JButton();
+        jButtonLista = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
+
+        jMenu1.setText("jMenu1");
+        jPopupMenu.add(jMenu1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("DIALOG OBJETOS");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNombre.setComponentPopupMenu(jPopupMenu);
+        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldNombreActionPerformed(evt);
             }
         });
 
@@ -78,9 +96,40 @@ public class DialogLista extends javax.swing.JDialog {
 
         jLabel5.setText("Genero");
 
-        jButton1.setText("Limpiar");
+        jButtonLimpiar.setText("Limpiar");
+        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Siguiente");
+        jButtonSiguiente.setText("Siguiente");
+        jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSiguienteActionPerformed(evt);
+            }
+        });
+
+        jButtonAnterior.setText("Anterior");
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
+
+        jButtonLista.setText("Iniciar Lista");
+        jButtonLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListaActionPerformed(evt);
+            }
+        });
+
+        jButtonGuardar.setText("GUARDAR CAMBIOS");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,38 +138,49 @@ public class DialogLista extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButtonLimpiar)
+                                .addGap(89, 89, 89)
+                                .addComponent(jButtonAnterior)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSiguiente))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(138, 138, 138)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonLista)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jCheckBox1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addComponent(jTextFieldGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)))
+                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButtonLista))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -128,36 +188,110 @@ public class DialogLista extends javax.swing.JDialog {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonLimpiar)
+                    .addComponent(jButtonSiguiente)
+                    .addComponent(jButtonAnterior))
+                .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldNombreActionPerformed
+
+    private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
+        //Boton Siguiente
+        //Controla que en cada elemento se vaya añadiendo el valor correspondiente del
+        //siguiente elemnto de la lista
+        //Y saltara un mensaje de error al llegar al final
+        if(posicionlistanombre<=2){
+            jTextFieldNombre.setText(listalibros.get(++posicionlistanombre).getNombre());
+            jTextFieldNumero.setText(String.valueOf(listalibros.get(++posicionlistanumero).getNumero()));
+            jCheckBox1.setSelected(listalibros.get(++posicionlistad).isDisponible());
+            jTextFieldGenero.setText(listalibros.get(++posicionlistagenero).getCategoria());
+        }else{
+            JOptionPane.showMessageDialog(null, "Se ha llegado al final de la lista", "Atención", JOptionPane.WARNING_MESSAGE); 
+        }         
+    }//GEN-LAST:event_jButtonSiguienteActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        //Boton Anterior
+        //Controla que en cada elemento se vaya añadiendo el valor correspondiente del
+        //anterior elemnto de la lista
+        //Y saltara un mensaje de error al llegar al principio
+        if(posicionlistanombre>0){
+            jTextFieldNombre.setText(listalibros.get(--posicionlistanombre).getNombre());
+            jTextFieldNumero.setText(String.valueOf(listalibros.get(--posicionlistanumero).getNumero()));
+            jCheckBox1.setSelected(listalibros.get(--posicionlistad).isDisponible());
+            jTextFieldGenero.setText(listalibros.get(--posicionlistagenero).getCategoria());
+        }else{
+            JOptionPane.showMessageDialog(null, "Se ha llegado al principio de la lista", "Atención", JOptionPane.WARNING_MESSAGE); 
+        }       
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
+        //Limpiar los elementos
+        jTextFieldNombre.setText("");
+        jTextFieldNumero.setText("");
+        jCheckBox1.setText("");
+        jTextFieldGenero.setText("");
+    }//GEN-LAST:event_jButtonLimpiarActionPerformed
+
+    private void jButtonListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListaActionPerformed
+        //Añade nuevamente la lista
+        jTextFieldNombre.setText(listalibros.get(0).getNombre());
+        jTextFieldNumero.setText(String.valueOf(listalibros.get(0).getNumero()));
+        jCheckBox1.setText(String.valueOf(listalibros.get(0).isDisponible()));
+        jTextFieldGenero.setText(listalibros.get(0).getCategoria());
+    }//GEN-LAST:event_jButtonListaActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        //Guarda (temporalmente,hasta cerrar la aplicacion) las ediciones y cambios en los elemntos/lista
+        String nombre = jTextFieldNombre.getText();
+        listalibros.get(posicionlistanombre).setNombre(nombre);
+        //Solo caracteres numericos
+        try {
+             int numero = Integer.valueOf(jTextFieldNumero.getText());
+             listalibros.get(posicionlistanombre).setNumero(numero);
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Debes introducir solo caracteres numerico", "Error al guardar el numero", JOptionPane.ERROR_MESSAGE); 
+        }
+        boolean disponible = jCheckBox1.isSelected();
+        listalibros.get(posicionlistanombre).setDisponible(disponible);
+        String genero = jTextFieldGenero.getText();
+        listalibros.get(posicionlistanombre).setCategoria(genero);
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JButton jButtonLimpiar;
+    private javax.swing.JButton jButtonLista;
+    private javax.swing.JButton jButtonSiguiente;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JPopupMenu jPopupMenu;
+    private javax.swing.JTextField jTextFieldGenero;
+    private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldNumero;
     // End of variables declaration//GEN-END:variables
 }

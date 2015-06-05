@@ -82,6 +82,7 @@ public class Dialog extends javax.swing.JDialog {
 
         jLabel1.setText("jDialog");
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
