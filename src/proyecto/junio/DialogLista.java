@@ -6,8 +6,9 @@
 package proyecto.junio;
 
 import Clases.Categoria;
-import static Clases.Categoria.listalibros;
+import static Clases.Categoria.listaLibros;
 import Clases.GestionLibros;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,31 +22,64 @@ public class DialogLista extends javax.swing.JDialog {
    int posicionlistanumero = 0;
    int posicionlistad = 0 ;
    int posicionlistagenero = 0;
-    
+   int posicionlista = 0;
+    //Objeto categoria 
+   Categoria variable = new Categoria();
+  
     /**
      * Creates new form DialogLista
      */
     public DialogLista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        //Añadir los ejemplos
         añadirObjetosEjemplo();
+        //ComboBox
+        jComboBox1.addItem(variable.devolverElementoArray(0));
+        jComboBox1.addItem(variable.devolverElementoArray(1));
+        jComboBox1.addItem(variable.devolverElementoArray(2));
+        jComboBox1.addItem(variable.devolverElementoArray(3));
+        jComboBox1.addItem(variable.devolverElementoArray(4));
+        jComboBoxNuevo.addItem(variable.devolverElementoArray(0));
+        jComboBoxNuevo.addItem(variable.devolverElementoArray(1));
+        jComboBoxNuevo.addItem(variable.devolverElementoArray(2));
+        jComboBoxNuevo.addItem(variable.devolverElementoArray(3));
+        jComboBoxNuevo.addItem(variable.devolverElementoArray(4));
         //Añadimos a los campos el primer elemento de la lista
-        jTextFieldNombre.setText(listalibros.get(0).getNombre());
-        jTextFieldNumero.setText(String.valueOf(listalibros.get(0).getNumero()));
-        jCheckBox1.setText(String.valueOf(listalibros.get(0).isDisponible()));
-        jTextFieldGenero.setText(listalibros.get(0).getCategoria());   
+        jTextFieldNombre.setText(listaLibros.get(0).getNombre());
+        jTextFieldNumero.setText(String.valueOf(listaLibros.get(0).getNumero()));
+        jCheckBox1.setText(String.valueOf(listaLibros.get(0).isDisponible())); 
+        jComboBox1.setSelectedItem(variable.devolverElementoArray(0));
     }
 
     //Metodo que crea 4 objetos y los añade a la lista
     public void añadirObjetosEjemplo(){
-        GestionLibros librosg1 = new GestionLibros("Harry Potter",293468,true,"Fantasia");
-        GestionLibros librosg2 = new GestionLibros("Sherlock Holmes",234789,true,"Misterio");
-        GestionLibros librosg3 = new GestionLibros("Mortadelo y Filemon",2344444,false,"Humor");
-        GestionLibros librosg4 = new GestionLibros("Belen Esteban",666,true,"Autobiografia");
-        listalibros.add(librosg1);
-        listalibros.add(librosg2);
-        listalibros.add(librosg3);
-        listalibros.add(librosg4);
+        GestionLibros librosg1 = new GestionLibros("Harry Potter",293468,true,variable.devolverElementoArray(0));
+        GestionLibros librosg2 = new GestionLibros("Sherlock Holmes",234789,true,variable.devolverElementoArray(1));
+        GestionLibros librosg3 = new GestionLibros("Mortadelo y Filemon",2344444,false,variable.devolverElementoArray(2));
+        GestionLibros librosg4 = new GestionLibros("Belen Esteban",666,true,variable.devolverElementoArray(4));
+        listaLibros.add(librosg1);
+        listaLibros.add(librosg2);
+        listaLibros.add(librosg3);
+        listaLibros.add(librosg4);
+    }
+    
+    //Metodo para actualizar la lista
+    public void actualizarlista(){
+        //Guarda (temporalmente,hasta cerrar la aplicacion) las ediciones y cambios en los elemntos/lista
+        String nombre = jTextFieldNombre.getText();
+        listaLibros.get(posicionlistanombre).setNombre(nombre);
+        //Solo caracteres numericos
+        try {
+             int numero = Integer.valueOf(jTextFieldNumero.getText());
+             listaLibros.get(posicionlistanombre).setNumero(numero);
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Debes introducir solo caracteres numerico", "Error al guardar el numero", JOptionPane.ERROR_MESSAGE); 
+        }
+        boolean disponible = jCheckBox1.isSelected();
+        listaLibros.get(posicionlistanombre).setDisponible(disponible);
+        String categoria = (String) jComboBox1.getSelectedItem();
+        listaLibros.get(posicionlistanombre).setCategoria(categoria);
     }
     
     /**
@@ -57,31 +91,62 @@ public class DialogLista extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu = new javax.swing.JPopupMenu();
+        Opciones = new javax.swing.JPopupMenu();
         jMenu1 = new javax.swing.JMenu();
+        Siguiente = new javax.swing.JMenuItem();
+        Anterior = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldNumero = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldGenero = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButtonLimpiar = new javax.swing.JButton();
         jButtonSiguiente = new javax.swing.JButton();
         jButtonAnterior = new javax.swing.JButton();
-        jButtonLista = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jComboBox1 = new javax.swing.JComboBox();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jButtonAñadir = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jTextFieldNombreNuevo = new javax.swing.JTextField();
+        jTextFieldNumeroNuevo = new javax.swing.JTextField();
+        jCheckBoxNuevo = new javax.swing.JCheckBox();
+        jComboBoxNuevo = new javax.swing.JComboBox();
+        jButtonBorrar = new javax.swing.JButton();
 
-        jMenu1.setText("jMenu1");
-        jPopupMenu.add(jMenu1);
+        jMenu1.setText("Opciones");
+        jMenu1.setToolTipText("");
+
+        Siguiente.setText("Siguiente");
+        Siguiente.setToolTipText("");
+        Siguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SiguienteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(Siguiente);
+
+        Anterior.setText("Anterior");
+        Anterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnteriorActionPerformed(evt);
+            }
+        });
+        jMenu1.add(Anterior);
+
+        Opciones.add(jMenu1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("DIALOG OBJETOS");
 
-        jTextFieldNombre.setComponentPopupMenu(jPopupMenu);
+        jTextFieldNombre.setComponentPopupMenu(Opciones);
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -95,13 +160,6 @@ public class DialogLista extends javax.swing.JDialog {
         jLabel4.setText("Disponibilidad");
 
         jLabel5.setText("Genero");
-
-        jButtonLimpiar.setText("Limpiar");
-        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimpiarActionPerformed(evt);
-            }
-        });
 
         jButtonSiguiente.setText("Siguiente");
         jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -117,17 +175,89 @@ public class DialogLista extends javax.swing.JDialog {
             }
         });
 
-        jButtonLista.setText("Iniciar Lista");
-        jButtonLista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListaActionPerformed(evt);
-            }
-        });
-
         jButtonGuardar.setText("GUARDAR CAMBIOS");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel6.setText("Listas");
+
+        jButtonAñadir.setText("AÑADIR");
+        jButtonAñadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAñadirActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Nombre");
+
+        jLabel8.setText("Numero");
+
+        jLabel9.setText("Disponibilidad");
+
+        jLabel10.setText("Genero");
+
+        jCheckBoxNuevo.setText("jCheckBox2");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButtonAñadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldNombreNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextFieldNumeroNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jCheckBoxNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel8))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jComboBoxNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(213, 213, 213)
+                        .addComponent(jLabel6)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNombreNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNumeroNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBoxNuevo)
+                    .addComponent(jComboBoxNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonAñadir)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButtonBorrar.setText("BORRAR");
+        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarActionPerformed(evt);
             }
         });
 
@@ -140,69 +270,74 @@ public class DialogLista extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jButtonLimpiar)
-                                .addGap(89, 89, 89)
+                                .addGap(55, 55, 55)
                                 .addComponent(jButtonAnterior)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(42, 42, 42)
                                 .addComponent(jButtonSiguiente))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(138, 138, 138)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonLista)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jCheckBox1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButtonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jCheckBox1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextFieldGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)))
-                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButtonLista))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonLimpiar)
-                    .addComponent(jButtonSiguiente)
-                    .addComponent(jButtonAnterior))
-                .addContainerGap(15, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCheckBox1))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonSiguiente)
+                            .addComponent(jButtonAnterior))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jButtonGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonBorrar)
+                        .addGap(26, 26, 26)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -217,14 +352,16 @@ public class DialogLista extends javax.swing.JDialog {
         //Controla que en cada elemento se vaya añadiendo el valor correspondiente del
         //siguiente elemnto de la lista
         //Y saltara un mensaje de error al llegar al final
-        if(posicionlistanombre<=2){
-            jTextFieldNombre.setText(listalibros.get(++posicionlistanombre).getNombre());
-            jTextFieldNumero.setText(String.valueOf(listalibros.get(++posicionlistanumero).getNumero()));
-            jCheckBox1.setSelected(listalibros.get(++posicionlistad).isDisponible());
-            jTextFieldGenero.setText(listalibros.get(++posicionlistagenero).getCategoria());
+        actualizarlista();
+        if(posicionlista<=listaLibros.size()-2){ 
+            ++posicionlista;
+            jTextFieldNombre.setText(listaLibros.get(++posicionlistanombre).getNombre());
+            jTextFieldNumero.setText(String.valueOf(listaLibros.get(++posicionlistanumero).getNumero()));
+            jCheckBox1.setSelected(listaLibros.get(++posicionlistad).isDisponible());
+            jComboBox1.setSelectedItem(listaLibros.get(++posicionlistagenero).getCategoria());
         }else{
             JOptionPane.showMessageDialog(null, "Se ha llegado al final de la lista", "Atención", JOptionPane.WARNING_MESSAGE); 
-        }         
+        }               
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
     private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
@@ -232,66 +369,84 @@ public class DialogLista extends javax.swing.JDialog {
         //Controla que en cada elemento se vaya añadiendo el valor correspondiente del
         //anterior elemnto de la lista
         //Y saltara un mensaje de error al llegar al principio
-        if(posicionlistanombre>0){
-            jTextFieldNombre.setText(listalibros.get(--posicionlistanombre).getNombre());
-            jTextFieldNumero.setText(String.valueOf(listalibros.get(--posicionlistanumero).getNumero()));
-            jCheckBox1.setSelected(listalibros.get(--posicionlistad).isDisponible());
-            jTextFieldGenero.setText(listalibros.get(--posicionlistagenero).getCategoria());
+        actualizarlista();
+        if(posicionlista>0){
+            --posicionlista;
+            jTextFieldNombre.setText(listaLibros.get(--posicionlistanombre).getNombre());
+            jTextFieldNumero.setText(String.valueOf(listaLibros.get(--posicionlistanumero).getNumero()));
+            jCheckBox1.setSelected(listaLibros.get(--posicionlistad).isDisponible());
+            jComboBox1.setSelectedItem(listaLibros.get(--posicionlistagenero).getCategoria());
         }else{
             JOptionPane.showMessageDialog(null, "Se ha llegado al principio de la lista", "Atención", JOptionPane.WARNING_MESSAGE); 
-        }       
+        }      
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
-    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
-        //Limpiar los elementos
-        jTextFieldNombre.setText("");
-        jTextFieldNumero.setText("");
-        jCheckBox1.setText("");
-        jTextFieldGenero.setText("");
-    }//GEN-LAST:event_jButtonLimpiarActionPerformed
-
-    private void jButtonListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListaActionPerformed
-        //Añade nuevamente la lista
-        jTextFieldNombre.setText(listalibros.get(0).getNombre());
-        jTextFieldNumero.setText(String.valueOf(listalibros.get(0).getNumero()));
-        jCheckBox1.setText(String.valueOf(listalibros.get(0).isDisponible()));
-        jTextFieldGenero.setText(listalibros.get(0).getCategoria());
-    }//GEN-LAST:event_jButtonListaActionPerformed
-
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        //Guarda (temporalmente,hasta cerrar la aplicacion) las ediciones y cambios en los elemntos/lista
-        String nombre = jTextFieldNombre.getText();
-        listalibros.get(posicionlistanombre).setNombre(nombre);
-        //Solo caracteres numericos
-        try {
-             int numero = Integer.valueOf(jTextFieldNumero.getText());
-             listalibros.get(posicionlistanombre).setNumero(numero);
-        } catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Debes introducir solo caracteres numerico", "Error al guardar el numero", JOptionPane.ERROR_MESSAGE); 
-        }
-        boolean disponible = jCheckBox1.isSelected();
-        listalibros.get(posicionlistanombre).setDisponible(disponible);
-        String genero = jTextFieldGenero.getText();
-        listalibros.get(posicionlistanombre).setCategoria(genero);
+        actualizarlista();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
+       jButtonSiguiente.doClick();
+    }//GEN-LAST:event_SiguienteActionPerformed
+
+    private void AnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnteriorActionPerformed
+        jButtonAnterior.doClick();
+    }//GEN-LAST:event_AnteriorActionPerformed
+
+    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+        listaLibros.remove(posicionlista);
+    }//GEN-LAST:event_jButtonBorrarActionPerformed
+
+    private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
+        GestionLibros nuevo = new GestionLibros();
+        if(jTextFieldNombreNuevo.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Introduce un título", "Precaución", JOptionPane.WARNING_MESSAGE); 
+        }else{
+            String nombre = jTextFieldNombreNuevo.getText();
+            nuevo.setNombre(nombre);
+            try{
+                int numero = Integer.valueOf(jTextFieldNumeroNuevo.getText());
+                nuevo.setNumero(numero);
+                boolean disponible = jCheckBox1.isSelected();
+                nuevo.setDisponible(disponible);
+                String categoria = (String) jComboBoxNuevo.getSelectedItem();
+                nuevo.setCategoria(categoria);
+                listaLibros.add(nuevo);
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Introduce un dato numerico", "Precaución", JOptionPane.WARNING_MESSAGE); 
+            }
+        }
+    }//GEN-LAST:event_jButtonAñadirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Anterior;
+    private javax.swing.JPopupMenu Opciones;
+    private javax.swing.JMenuItem Siguiente;
     private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonAñadir;
+    private javax.swing.JButton jButtonBorrar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonLimpiar;
-    private javax.swing.JButton jButtonLista;
     private javax.swing.JButton jButtonSiguiente;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBoxNuevo;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBoxNuevo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JPopupMenu jPopupMenu;
-    private javax.swing.JTextField jTextFieldGenero;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldNombreNuevo;
     private javax.swing.JTextField jTextFieldNumero;
+    private javax.swing.JTextField jTextFieldNumeroNuevo;
     // End of variables declaration//GEN-END:variables
 }

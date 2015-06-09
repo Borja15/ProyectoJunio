@@ -12,27 +12,23 @@ public class Categoria {
     /**
      * Propiedad privada,array unidimensional que guarda distintos tipos de categorías de libros
      */
-    private  String[] categorialibro = {"Misterio","Fantasía","Humor","Novela","Biografia"};
+    private String[] categoriLibro = {"Fantasia","Misterio","Humor","Novela","Biografia"};
     /**
      * Arraylist para almacenar objetos
      */
-    public static ArrayList<GestionLibros> listalibros = new ArrayList();
-    /**
-     * posicion inicial de los libros
-     */
-    int posicion = 0;
+    public static ArrayList<GestionLibros> listaLibros = new ArrayList();
     /**
      * index para la posicion obtenida del jtextField
      */
     int indexposicion;
     /**
-     * String que almacenara el array con todas las categorias
-     */
-    String libro = "";
-    /**
      * String que almacenara los cambios de array
      */
     String libronuevo = "";
+    /**
+     * String que almacena una categoria que eligamos
+     */
+    String categoriaElegida= "";
     /**
      * Metodo constructor (vacío)
      */
@@ -45,10 +41,11 @@ public class Categoria {
      * @return Retorna valores String enumerados correspondientes a la categoria de los libros
      */
     public String mostrarArray(){
-        for(int i=0;i<categorialibro.length;i++){
-            libro +=posicion++;
+        String libro = "";
+        for(int i=0;i<categoriLibro.length;i++){
+            libro += (i+1);
             libro += " -- ";
-            libro += categorialibro[i] + "\n";
+            libro += categoriLibro[i] + "\n";
         }
         return libro;
     }
@@ -60,7 +57,7 @@ public class Categoria {
      */
     public void mover(int indexposicioninicial,int indexposicionfinal){
        this.indexposicion = indexposicioninicial;
-       if(indexposicioninicial>4 || indexposicionfinal>4){
+       if(indexposicioninicial>categoriLibro.length || indexposicionfinal>categoriLibro.length){
             JOptionPane.showMessageDialog(null, "No se ha encontrado categoría con esa posición", "Atención", JOptionPane.WARNING_MESSAGE);
             libronuevo = "";
         }else{
@@ -68,9 +65,9 @@ public class Categoria {
                    JOptionPane.showMessageDialog(null, "No existe posicion a la que moverse", "Atención", JOptionPane.WARNING_MESSAGE); 
                    libronuevo = "";
                }else{
-                   libronuevo = categorialibro[indexposicionfinal]; 
-                   categorialibro[indexposicionfinal]=categorialibro[indexposicioninicial];
-                   categorialibro[indexposicioninicial]=libronuevo;
+                   libronuevo = categoriLibro[indexposicionfinal]; 
+                   categoriLibro[indexposicionfinal]=categoriLibro[indexposicioninicial];
+                   categoriLibro[indexposicioninicial]=libronuevo;
                    libronuevo = "";
                }
            }
@@ -82,12 +79,17 @@ public class Categoria {
      */
     public String ToArray(){
         int posicionnueva = 0;
-        for(int i=0;i<categorialibro.length;i++){
+        for(int i=0;i<categoriLibro.length;i++){
             libronuevo +=posicionnueva++;
             libronuevo += " -- ";
-            libronuevo += categorialibro[i] + "\n";
+            libronuevo += categoriLibro[i] + "\n";
         }
         return libronuevo;
+    }
+
+    public String devolverElementoArray(int elemento){
+        categoriaElegida = categoriLibro[elemento];
+        return categoriaElegida;
     }
     
     

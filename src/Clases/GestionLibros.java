@@ -1,7 +1,7 @@
 
 package Clases;
 
-import static Clases.Categoria.listalibros;
+import static Clases.Categoria.listaLibros;
 
 /**
  *
@@ -108,5 +108,6 @@ public class GestionLibros {
         this.categoria = categoria;
     }
 
+    
     
 }

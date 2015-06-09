@@ -45,7 +45,7 @@ public class Dialog extends javax.swing.JDialog {
      * Metodo que mostrar un aviso antes de cerrar la aplicación avisandonos si queremos realizar esa acción
      */
     public void cerrar(){
-        Object [] opciones ={"Aceptar","Cancelar"};
+        String [] opciones ={"Aceptar","Cancelar"};
         int eleccion = JOptionPane.showOptionDialog(rootPane,"¿Cerrar la aplicación?","Aviso",
         JOptionPane.YES_NO_OPTION,
         JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
