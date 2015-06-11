@@ -6,8 +6,10 @@
 package proyecto.junio;
 
 import Clases.Categoria;
+import static Clases.Categoria.escaparate;
 import static Clases.Categoria.listaLibros;
 import Clases.GestionLibros;
+import Clases.longitudText;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -24,17 +26,15 @@ public class DialogLista extends javax.swing.JDialog {
    int posicionlistagenero = 0;
    int posicionlista = 0;
     //Objeto categoria 
-   Categoria variable = new Categoria();
-  
+   Categoria variable = new Categoria();      
+
     /**
      * Creates new form DialogLista
      */
     public DialogLista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        //Añadir los ejemplos
-        añadirObjetosEjemplo();
-        //ComboBox
+        //Añadir las categorias del array a los comboBox
         jComboBox1.addItem(variable.devolverElementoArray(0));
         jComboBox1.addItem(variable.devolverElementoArray(1));
         jComboBox1.addItem(variable.devolverElementoArray(2));
@@ -50,19 +50,12 @@ public class DialogLista extends javax.swing.JDialog {
         jTextFieldNumero.setText(String.valueOf(listaLibros.get(0).getNumero()));
         jCheckBox1.setText(String.valueOf(listaLibros.get(0).isDisponible())); 
         jComboBox1.setSelectedItem(variable.devolverElementoArray(0));
+        //LONGITUD (Solo un numero en los textfield para la matriz de los escaparates)
+        jTextFieldMatriz1.setDocument(new longitudText(1));
+        jTextFieldMatriz1.setDocument(new longitudText(1));
     }
 
-    //Metodo que crea 4 objetos y los añade a la lista
-    public void añadirObjetosEjemplo(){
-        GestionLibros librosg1 = new GestionLibros("Harry Potter",293468,true,variable.devolverElementoArray(0));
-        GestionLibros librosg2 = new GestionLibros("Sherlock Holmes",234789,true,variable.devolverElementoArray(1));
-        GestionLibros librosg3 = new GestionLibros("Mortadelo y Filemon",2344444,false,variable.devolverElementoArray(2));
-        GestionLibros librosg4 = new GestionLibros("Belen Esteban",666,true,variable.devolverElementoArray(4));
-        listaLibros.add(librosg1);
-        listaLibros.add(librosg2);
-        listaLibros.add(librosg3);
-        listaLibros.add(librosg4);
-    }
+    
     
     //Metodo para actualizar la lista
     public void actualizarlista(){
@@ -81,6 +74,7 @@ public class DialogLista extends javax.swing.JDialog {
         String categoria = (String) jComboBox1.getSelectedItem();
         listaLibros.get(posicionlistanombre).setCategoria(categoria);
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,6 +113,14 @@ public class DialogLista extends javax.swing.JDialog {
         jCheckBoxNuevo = new javax.swing.JCheckBox();
         jComboBoxNuevo = new javax.swing.JComboBox();
         jButtonBorrar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextFieldMatriz1 = new javax.swing.JTextField();
+        jTextFieldMatriz2 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jButtonEscaparate = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jMenu1.setText("Opciones");
         jMenu1.setToolTipText("");
@@ -261,6 +263,70 @@ public class DialogLista extends javax.swing.JDialog {
             }
         });
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Escaparate"));
+
+        jLabel11.setText("Indicar posicion en la matriz del escaparate: ");
+
+        jLabel12.setText("Alto:");
+
+        jLabel13.setText("Ancho:");
+
+        jButtonEscaparate.setText("Al Escaparate!");
+        jButtonEscaparate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEscaparateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(jTextFieldMatriz1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel13)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldMatriz2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonEscaparate)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(jLabel13))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jTextFieldMatriz1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldMatriz2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonEscaparate))
+        );
+
+        jButton1.setText("CANCELAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -268,47 +334,49 @@ public class DialogLista extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
-                                .addComponent(jButtonAnterior)
-                                .addGap(42, 42, 42)
-                                .addComponent(jButtonSiguiente))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jCheckBox1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jButtonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jButtonAnterior)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButtonSiguiente))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jCheckBox1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1)
@@ -328,15 +396,18 @@ public class DialogLista extends javax.swing.JDialog {
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonSiguiente)
-                            .addComponent(jButtonAnterior))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jButtonAnterior)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jButtonGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonBorrar)
-                        .addGap(26, 26, 26)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -382,22 +453,27 @@ public class DialogLista extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        //Boton guardar,actualizara la lista
         actualizarlista();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
-       jButtonSiguiente.doClick();
+        //Se llamara al boton siguiente (menu contextual)
+        jButtonSiguiente.doClick();
     }//GEN-LAST:event_SiguienteActionPerformed
 
     private void AnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnteriorActionPerformed
+        //Se llamara al boton anterior (menu contextual)
         jButtonAnterior.doClick();
     }//GEN-LAST:event_AnteriorActionPerformed
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+        //Borra el objeto de la lista segun su posicion
         listaLibros.remove(posicionlista);
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
+        //Añadir un nuevo objeto a la lista
         GestionLibros nuevo = new GestionLibros();
         if(jTextFieldNombreNuevo.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Introduce un título", "Precaución", JOptionPane.WARNING_MESSAGE); 
@@ -418,14 +494,46 @@ public class DialogLista extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButtonAñadirActionPerformed
 
+    private void jButtonEscaparateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEscaparateActionPerformed
+        //Añadir el objeto al escaparate segun la posicion indicada
+        int x = Integer.valueOf(jTextFieldMatriz1.getText());
+        int y = Integer.valueOf(jTextFieldMatriz2.getText());
+        if(x<0){
+            JOptionPane.showMessageDialog(null, "La posicion no coincide con la matriz", "Atencion", JOptionPane.WARNING_MESSAGE);  
+        }else{
+            if(x>1){
+                JOptionPane.showMessageDialog(null, "La posicion no coincide con la matriz", "Precaución", JOptionPane.WARNING_MESSAGE); 
+            }else{
+                if(y<0){
+                    JOptionPane.showMessageDialog(null, "La posicion no coincide con la matriz", "Precaución", JOptionPane.WARNING_MESSAGE);
+                }else{
+                    if(y>2){
+                        JOptionPane.showMessageDialog(null, "La posicion no coincide con la matriz", "Precaución", JOptionPane.WARNING_MESSAGE);
+                    }else{
+                        escaparate[x][y]=listaLibros.get(posicionlista); 
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonEscaparateActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jTextFieldNombre.setText(listaLibros.get(posicionlista).getNombre());
+        jTextFieldNumero.setText(String.valueOf(listaLibros.get(posicionlista).getNumero()));
+        jCheckBox1.setSelected(listaLibros.get(posicionlista).isDisponible());
+        jComboBox1.setSelectedItem(listaLibros.get(posicionlista).getCategoria());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Anterior;
     private javax.swing.JPopupMenu Opciones;
     private javax.swing.JMenuItem Siguiente;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonAñadir;
     private javax.swing.JButton jButtonBorrar;
+    private javax.swing.JButton jButtonEscaparate;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonSiguiente;
     private javax.swing.JCheckBox jCheckBox1;
@@ -434,6 +542,9 @@ public class DialogLista extends javax.swing.JDialog {
     private javax.swing.JComboBox jComboBoxNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -444,6 +555,9 @@ public class DialogLista extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTextFieldMatriz1;
+    private javax.swing.JTextField jTextFieldMatriz2;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldNombreNuevo;
     private javax.swing.JTextField jTextFieldNumero;

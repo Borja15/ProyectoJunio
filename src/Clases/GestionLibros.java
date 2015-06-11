@@ -24,6 +24,7 @@ public class GestionLibros {
      * String con la categoria correspondiente del libro
      */
     private String categoria;
+    
     /**
      * Metodo constructor vacío
      */
@@ -108,6 +109,25 @@ public class GestionLibros {
         this.categoria = categoria;
     }
 
+    
+    /**
+     * Metodo que devuleve un String con todos los datos del objeto
+     * @return string con el nombre,numero,categoria y disponibilidad del libro
+     */
+    @Override
+    public String toString(){
+        String resultado = "";
+        resultado += "Título: " + nombre + "\n";
+        resultado += "Numero ISBN: " + numero + "\n";
+        resultado += "Genero: " + categoria + "\n";
+        if(disponible){
+            resultado += "Libro disponible";
+        }else{
+            resultado += "Libro no disponible";
+        }
+        return resultado;
+    }
+    
     
     
 }

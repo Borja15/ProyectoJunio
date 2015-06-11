@@ -24,11 +24,16 @@ public class Categoria {
     /**
      * String que almacenara los cambios de array
      */
-    String libronuevo = "";
+    String libroNuevo = "";
     /**
      * String que almacena una categoria que eligamos
      */
     String categoriaElegida= "";
+    /**
+     * Matriz para el escaparate
+     */
+    public static GestionLibros[][] escaparate = new GestionLibros[2][3];   
+    
     /**
      * Metodo constructor (vacío)
      */
@@ -59,16 +64,16 @@ public class Categoria {
        this.indexposicion = indexposicioninicial;
        if(indexposicioninicial>categoriLibro.length || indexposicionfinal>categoriLibro.length){
             JOptionPane.showMessageDialog(null, "No se ha encontrado categoría con esa posición", "Atención", JOptionPane.WARNING_MESSAGE);
-            libronuevo = "";
+            libroNuevo = "";
         }else{
                if(indexposicionfinal<0){
                    JOptionPane.showMessageDialog(null, "No existe posicion a la que moverse", "Atención", JOptionPane.WARNING_MESSAGE); 
-                   libronuevo = "";
+                   libroNuevo = "";
                }else{
-                   libronuevo = categoriLibro[indexposicionfinal]; 
+                   libroNuevo = categoriLibro[indexposicionfinal]; 
                    categoriLibro[indexposicionfinal]=categoriLibro[indexposicioninicial];
-                   categoriLibro[indexposicioninicial]=libronuevo;
-                   libronuevo = "";
+                   categoriLibro[indexposicioninicial]=libroNuevo;
+                   libroNuevo = "";
                }
            }
        
@@ -80,13 +85,18 @@ public class Categoria {
     public String ToArray(){
         int posicionnueva = 0;
         for(int i=0;i<categoriLibro.length;i++){
-            libronuevo +=posicionnueva++;
-            libronuevo += " -- ";
-            libronuevo += categoriLibro[i] + "\n";
+            libroNuevo +=posicionnueva++;
+            libroNuevo += " -- ";
+            libroNuevo += categoriLibro[i] + "\n";
         }
-        return libronuevo;
+        return libroNuevo;
     }
 
+    /**
+     * Metodo para devolver la categoria del libro
+     * @param elemento int que indicara la posicion dentro del array de la categoria
+     * @return categoria elegida dentro del array
+     */
     public String devolverElementoArray(int elemento){
         categoriaElegida = categoriLibro[elemento];
         return categoriaElegida;
