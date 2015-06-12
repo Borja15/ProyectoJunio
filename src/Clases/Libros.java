@@ -7,7 +7,7 @@ import static Clases.Categoria.listaLibros;
  *
  * @author Borja Andrades
  */
-public class GestionLibros {
+public class Libros {
     /**
      * Nombre del libro
      */
@@ -28,7 +28,7 @@ public class GestionLibros {
     /**
      * Metodo constructor vacío
      */
-    public GestionLibros() {
+    public Libros() {
     }
 
     /**
@@ -38,7 +38,7 @@ public class GestionLibros {
      * @param disponible disponibilidad del libro
      * @param categoria categoria del libro
      */
-    public GestionLibros(String nombre, int numero, boolean disponible,String categoria) {
+    public Libros(String nombre, int numero, boolean disponible,String categoria) {
         this.nombre = nombre;
         this.numero = numero;
         this.disponible = disponible;

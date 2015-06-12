@@ -16,7 +16,7 @@ public class Categoria {
     /**
      * Arraylist para almacenar objetos
      */
-    public static ArrayList<GestionLibros> listaLibros = new ArrayList();
+    public static ArrayList<Libros> listaLibros = new ArrayList();
     /**
      * index para la posicion obtenida del jtextField
      */
@@ -32,7 +32,7 @@ public class Categoria {
     /**
      * Matriz para el escaparate
      */
-    public static GestionLibros[][] escaparate = new GestionLibros[2][3];   
+    public static Libros[][] escaparate = new Libros[2][3];   
     
     /**
      * Metodo constructor (vacío)

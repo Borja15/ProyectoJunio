@@ -5,7 +5,7 @@
  */
 package proyecto.junio;
 import Clases.Categoria;
-import Clases.GestionLibros;
+import Clases.Libros;
 import Clases.longitudText;
 import java.awt.Color;
 import java.awt.Font;

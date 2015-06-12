@@ -8,7 +8,7 @@ package proyecto.junio;
 import Clases.Categoria;
 import static Clases.Categoria.escaparate;
 import static Clases.Categoria.listaLibros;
-import Clases.GestionLibros;
+import Clases.Libros;
 import Clases.longitudText;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -46,10 +46,14 @@ public class DialogLista extends javax.swing.JDialog {
         jComboBoxNuevo.addItem(variable.devolverElementoArray(3));
         jComboBoxNuevo.addItem(variable.devolverElementoArray(4));
         //Añadimos a los campos el primer elemento de la lista
+        try{
         jTextFieldNombre.setText(listaLibros.get(0).getNombre());
         jTextFieldNumero.setText(String.valueOf(listaLibros.get(0).getNumero()));
         jCheckBox1.setText(String.valueOf(listaLibros.get(0).isDisponible())); 
         jComboBox1.setSelectedItem(variable.devolverElementoArray(0));
+        }catch(IndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "No hay objetos en la lista", "Atención", JOptionPane.WARNING_MESSAGE);
+        }
         //LONGITUD (Solo un numero en los textfield para la matriz de los escaparates)
         jTextFieldMatriz1.setDocument(new longitudText(1));
         jTextFieldMatriz1.setDocument(new longitudText(1));
@@ -60,19 +64,23 @@ public class DialogLista extends javax.swing.JDialog {
     //Metodo para actualizar la lista
     public void actualizarlista(){
         //Guarda (temporalmente,hasta cerrar la aplicacion) las ediciones y cambios en los elemntos/lista
+        try{
         String nombre = jTextFieldNombre.getText();
-        listaLibros.get(posicionlistanombre).setNombre(nombre);
+        listaLibros.get(posicionlista).setNombre(nombre);
         //Solo caracteres numericos
         try {
              int numero = Integer.valueOf(jTextFieldNumero.getText());
-             listaLibros.get(posicionlistanombre).setNumero(numero);
+             listaLibros.get(posicionlista).setNumero(numero);
         } catch(NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Debes introducir solo caracteres numerico", "Error al guardar el numero", JOptionPane.ERROR_MESSAGE); 
         }
         boolean disponible = jCheckBox1.isSelected();
-        listaLibros.get(posicionlistanombre).setDisponible(disponible);
+        listaLibros.get(posicionlista).setDisponible(disponible);
         String categoria = (String) jComboBox1.getSelectedItem();
-        listaLibros.get(posicionlistanombre).setCategoria(categoria);
+        listaLibros.get(posicionlista).setCategoria(categoria);
+        }catch(IndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "No hay objetos en la lista", "Atención", JOptionPane.WARNING_MESSAGE);
+        }
     }
     
     
@@ -364,7 +372,7 @@ public class DialogLista extends javax.swing.JDialog {
                                     .addComponent(jButtonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -424,7 +432,7 @@ public class DialogLista extends javax.swing.JDialog {
         //siguiente elemnto de la lista
         //Y saltara un mensaje de error al llegar al final
         actualizarlista();
-        if(posicionlista<=listaLibros.size()-2){ 
+        if(posicionlista<listaLibros.size()-1){ 
             ++posicionlista;
             jTextFieldNombre.setText(listaLibros.get(++posicionlistanombre).getNombre());
             jTextFieldNumero.setText(String.valueOf(listaLibros.get(++posicionlistanumero).getNumero()));
@@ -449,7 +457,7 @@ public class DialogLista extends javax.swing.JDialog {
             jComboBox1.setSelectedItem(listaLibros.get(--posicionlistagenero).getCategoria());
         }else{
             JOptionPane.showMessageDialog(null, "Se ha llegado al principio de la lista", "Atención", JOptionPane.WARNING_MESSAGE); 
-        }      
+        }   
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -469,12 +477,25 @@ public class DialogLista extends javax.swing.JDialog {
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
         //Borra el objeto de la lista segun su posicion
-        listaLibros.remove(posicionlista);
+        try{
+            Libros libro;
+            listaLibros.remove(posicionlista);
+            libro = listaLibros.get(posicionlista);
+            jTextFieldNombre.setText(libro.getNombre());
+            jTextFieldNumero.setText(String.valueOf(libro.getNumero()));
+            jCheckBox1.setSelected(libro.isDisponible());
+            jComboBox1.setSelectedItem(libro.getCategoria());
+        }catch(IndexOutOfBoundsException e){
+            jTextFieldNombre.setText("");
+            jTextFieldNumero.setText("");
+            jCheckBox1.setSelected(false);
+            JOptionPane.showMessageDialog(null, "No hay objetos en la lista", "Atención", JOptionPane.WARNING_MESSAGE); 
+        }
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
         //Añadir un nuevo objeto a la lista
-        GestionLibros nuevo = new GestionLibros();
+        Libros nuevo = new Libros();
         if(jTextFieldNombreNuevo.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Introduce un título", "Precaución", JOptionPane.WARNING_MESSAGE); 
         }else{
