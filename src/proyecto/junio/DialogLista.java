@@ -6,8 +6,6 @@
 package proyecto.junio;
 
 import Clases.Categoria;
-import static Clases.Categoria.escaparate;
-import static Clases.Categoria.listaLibros;
 import Clases.Libros;
 import Clases.longitudText;
 import javax.swing.JButton;
@@ -20,13 +18,9 @@ import javax.swing.JOptionPane;
 public class DialogLista extends javax.swing.JDialog {
  
     //Posiciones segun el elemento
-   int posicionlistanombre = 0;
-   int posicionlistanumero = 0;
-   int posicionlistad = 0 ;
-   int posicionlistagenero = 0;
    int posicionlista = 0;
     //Objeto categoria 
-   Categoria variable = new Categoria();      
+   Categoria variable = new Categoria(); 
 
     /**
      * Creates new form DialogLista
@@ -47,9 +41,9 @@ public class DialogLista extends javax.swing.JDialog {
         jComboBoxNuevo.addItem(variable.devolverElementoArray(4));
         //Añadimos a los campos el primer elemento de la lista
         try{
-        jTextFieldNombre.setText(listaLibros.get(0).getNombre());
-        jTextFieldNumero.setText(String.valueOf(listaLibros.get(0).getNumero()));
-        jCheckBox1.setText(String.valueOf(listaLibros.get(0).isDisponible())); 
+        jTextFieldNombre.setText(Categoria.listaLibros.get(0).getNombre());
+        jTextFieldNumero.setText(String.valueOf(Categoria.listaLibros.get(0).getNumero()));
+        jCheckBox1.setText(String.valueOf(Categoria.listaLibros.get(0).isDisponible())); 
         jComboBox1.setSelectedItem(variable.devolverElementoArray(0));
         }catch(IndexOutOfBoundsException e){
             JOptionPane.showMessageDialog(null, "No hay objetos en la lista", "Atención", JOptionPane.WARNING_MESSAGE);
@@ -66,18 +60,18 @@ public class DialogLista extends javax.swing.JDialog {
         //Guarda (temporalmente,hasta cerrar la aplicacion) las ediciones y cambios en los elemntos/lista
         try{
         String nombre = jTextFieldNombre.getText();
-        listaLibros.get(posicionlista).setNombre(nombre);
+        Categoria.listaLibros.get(posicionlista).setNombre(nombre);
         //Solo caracteres numericos
         try {
              int numero = Integer.valueOf(jTextFieldNumero.getText());
-             listaLibros.get(posicionlista).setNumero(numero);
+             Categoria.listaLibros.get(posicionlista).setNumero(numero);
         } catch(NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Debes introducir solo caracteres numerico", "Error al guardar el numero", JOptionPane.ERROR_MESSAGE); 
         }
         boolean disponible = jCheckBox1.isSelected();
-        listaLibros.get(posicionlista).setDisponible(disponible);
+        Categoria.listaLibros.get(posicionlista).setDisponible(disponible);
         String categoria = (String) jComboBox1.getSelectedItem();
-        listaLibros.get(posicionlista).setCategoria(categoria);
+        Categoria.listaLibros.get(posicionlista).setCategoria(categoria);
         }catch(IndexOutOfBoundsException e){
             JOptionPane.showMessageDialog(null, "No hay objetos en la lista", "Atención", JOptionPane.WARNING_MESSAGE);
         }
@@ -432,12 +426,12 @@ public class DialogLista extends javax.swing.JDialog {
         //siguiente elemnto de la lista
         //Y saltara un mensaje de error al llegar al final
         actualizarlista();
-        if(posicionlista<listaLibros.size()-1){ 
+        if(posicionlista<Categoria.listaLibros.size()-1){ 
+            jTextFieldNombre.setText(Categoria.listaLibros.get(posicionlista+1).getNombre());
+            jTextFieldNumero.setText(String.valueOf(Categoria.listaLibros.get(posicionlista+1).getNumero()));
+            jCheckBox1.setSelected(Categoria.listaLibros.get(posicionlista+1).isDisponible());
+            jComboBox1.setSelectedItem(Categoria.listaLibros.get(posicionlista+1).getCategoria());
             ++posicionlista;
-            jTextFieldNombre.setText(listaLibros.get(++posicionlistanombre).getNombre());
-            jTextFieldNumero.setText(String.valueOf(listaLibros.get(++posicionlistanumero).getNumero()));
-            jCheckBox1.setSelected(listaLibros.get(++posicionlistad).isDisponible());
-            jComboBox1.setSelectedItem(listaLibros.get(++posicionlistagenero).getCategoria());
         }else{
             JOptionPane.showMessageDialog(null, "Se ha llegado al final de la lista", "Atención", JOptionPane.WARNING_MESSAGE); 
         }               
@@ -450,11 +444,11 @@ public class DialogLista extends javax.swing.JDialog {
         //Y saltara un mensaje de error al llegar al principio
         actualizarlista();
         if(posicionlista>0){
+            jTextFieldNombre.setText(Categoria.listaLibros.get(posicionlista-1).getNombre());
+            jTextFieldNumero.setText(String.valueOf(Categoria.listaLibros.get(posicionlista-1).getNumero()));
+            jCheckBox1.setSelected(Categoria.listaLibros.get(posicionlista-1).isDisponible());
+            jComboBox1.setSelectedItem(Categoria.listaLibros.get(posicionlista-1).getCategoria());
             --posicionlista;
-            jTextFieldNombre.setText(listaLibros.get(--posicionlistanombre).getNombre());
-            jTextFieldNumero.setText(String.valueOf(listaLibros.get(--posicionlistanumero).getNumero()));
-            jCheckBox1.setSelected(listaLibros.get(--posicionlistad).isDisponible());
-            jComboBox1.setSelectedItem(listaLibros.get(--posicionlistagenero).getCategoria());
         }else{
             JOptionPane.showMessageDialog(null, "Se ha llegado al principio de la lista", "Atención", JOptionPane.WARNING_MESSAGE); 
         }   
@@ -479,8 +473,8 @@ public class DialogLista extends javax.swing.JDialog {
         //Borra el objeto de la lista segun su posicion
         try{
             Libros libro;
-            listaLibros.remove(posicionlista);
-            libro = listaLibros.get(posicionlista);
+            Categoria.listaLibros.remove(posicionlista);
+            libro = Categoria.listaLibros.get(posicionlista);
             jTextFieldNombre.setText(libro.getNombre());
             jTextFieldNumero.setText(String.valueOf(libro.getNumero()));
             jCheckBox1.setSelected(libro.isDisponible());
@@ -508,7 +502,7 @@ public class DialogLista extends javax.swing.JDialog {
                 nuevo.setDisponible(disponible);
                 String categoria = (String) jComboBoxNuevo.getSelectedItem();
                 nuevo.setCategoria(categoria);
-                listaLibros.add(nuevo);
+                Categoria.listaLibros.add(nuevo);
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Introduce un dato numerico", "Precaución", JOptionPane.WARNING_MESSAGE); 
             }
@@ -531,7 +525,7 @@ public class DialogLista extends javax.swing.JDialog {
                     if(y>2){
                         JOptionPane.showMessageDialog(null, "La posicion no coincide con la matriz", "Precaución", JOptionPane.WARNING_MESSAGE);
                     }else{
-                        escaparate[x][y]=listaLibros.get(posicionlista); 
+                        Categoria.escaparate[x][y]=Categoria.listaLibros.get(posicionlista); 
                     }
                 }
             }
@@ -539,10 +533,10 @@ public class DialogLista extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonEscaparateActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jTextFieldNombre.setText(listaLibros.get(posicionlista).getNombre());
-        jTextFieldNumero.setText(String.valueOf(listaLibros.get(posicionlista).getNumero()));
-        jCheckBox1.setSelected(listaLibros.get(posicionlista).isDisponible());
-        jComboBox1.setSelectedItem(listaLibros.get(posicionlista).getCategoria());
+        jTextFieldNombre.setText(Categoria.listaLibros.get(posicionlista).getNombre());
+        jTextFieldNumero.setText(String.valueOf(Categoria.listaLibros.get(posicionlista).getNumero()));
+        jCheckBox1.setSelected(Categoria.listaLibros.get(posicionlista).isDisponible());
+        jComboBox1.setSelectedItem(Categoria.listaLibros.get(posicionlista).getCategoria());
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

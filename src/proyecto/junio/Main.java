@@ -6,11 +6,15 @@
 package proyecto.junio;
 
 import Clases.Categoria;
-import static Clases.Categoria.escaparate;
-import static Clases.Categoria.listaLibros;
 import Clases.Libros;
+import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 
 
@@ -30,9 +34,9 @@ public class Main extends javax.swing.JFrame {
         //Metodo que añade unos libros de ejemplo
         añadirObjetosEjemplo(); 
         //Inicializado por defecto en la posicion 0,0 de la matriz el primer libro de la lista
-        escaparate[0][0] = listaLibros.get(0);
+        Categoria.escaparate[0][0] = Categoria.listaLibros.get(0);
         //Escribe,por defecto,en el primer text area el contenido 0,0 de la matriz
-        jTextArea1.append(escaparate[0][0].toString());
+        jTextArea1.append(Categoria.escaparate[0][0].toString());
     }
 
     //Metodo que crea 4 objetos y los añade a la lista
@@ -41,10 +45,10 @@ public class Main extends javax.swing.JFrame {
         Libros librosg2 = new Libros("Sherlock Holmes",234789,true,variable.devolverElementoArray(1));
         Libros librosg3 = new Libros("Mortadelo y Filemon",2344444,false,variable.devolverElementoArray(2));
         Libros librosg4 = new Libros("Belen Esteban",666,true,variable.devolverElementoArray(4));
-        listaLibros.add(librosg1);
-        listaLibros.add(librosg2);
-        listaLibros.add(librosg3);
-        listaLibros.add(librosg4);
+        Categoria.listaLibros.add(librosg1);
+        Categoria.listaLibros.add(librosg2);
+        Categoria.listaLibros.add(librosg3);
+        Categoria.listaLibros.add(librosg4);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,7 +111,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Acceder Dialog Arry");
+        jButton1.setText("Lista de Categorias");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -140,7 +144,7 @@ public class Main extends javax.swing.JFrame {
         jTextArea6.setRows(5);
         jScrollPane6.setViewportView(jTextArea6);
 
-        jButton2.setText("Acceder Dialog Objetos");
+        jButton2.setText("Gestion de Libros");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -370,14 +374,14 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //jButton que hara visible el jDialog,ubicandole una posicion
-        Dialog dialog = new Dialog(new javax.swing.JFrame(), true);
+        Dialog dialog = new Dialog(this, true);
         dialog.setLocation(80, 80);
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //Igualmente,hara visible el jDialog,ubicandole una posicion
-        DialogLista dialogobjetos = new DialogLista(new javax.swing.JFrame(), true);
+        DialogLista dialogobjetos = new DialogLista(this, true);
         dialogobjetos.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -387,7 +391,7 @@ public class Main extends javax.swing.JFrame {
         //1ºTextArea
         try{
             jTextArea1.setText("");
-            jTextArea1.append(escaparate[0][0].toString());
+            jTextArea1.append(Categoria.escaparate[0][0].toString());
         }catch(NullPointerException e){
             if(jTextArea1.equals("")){
                 jTextArea1.setText("");
@@ -396,7 +400,7 @@ public class Main extends javax.swing.JFrame {
         //2ºTextArea
         try{
             jTextArea2.setText("");
-            jTextArea2.append(escaparate[0][1].toString());
+            jTextArea2.append(Categoria.escaparate[0][1].toString());
         }catch(NullPointerException e){
             if(jTextArea2.equals("")){
                 jTextArea2.setText("");
@@ -405,7 +409,7 @@ public class Main extends javax.swing.JFrame {
         //3ºTextArea
         try{
             jTextArea3.setText("");
-            jTextArea3.append(escaparate[0][2].toString());
+            jTextArea3.append(Categoria.escaparate[0][2].toString());
         }catch(NullPointerException e){
             if(jTextArea3.equals("")){
                 jTextArea3.setText("");
@@ -414,7 +418,7 @@ public class Main extends javax.swing.JFrame {
         //4ºTextArea
         try{
             jTextArea4.setText("");
-            jTextArea4.append(escaparate[1][0].toString());
+            jTextArea4.append(Categoria.escaparate[1][0].toString());
         }catch(NullPointerException e){
             if(jTextArea4.equals("")){
                 jTextArea4.setText("");
@@ -423,7 +427,7 @@ public class Main extends javax.swing.JFrame {
         //5ºTextArea
         try{
             jTextArea5.setText("");
-            jTextArea5.append(escaparate[1][1].toString());
+            jTextArea5.append(Categoria.escaparate[1][1].toString());
         }catch(NullPointerException e){
             if(jTextArea5.equals("")){
                 jTextArea5.setText("");
@@ -432,7 +436,7 @@ public class Main extends javax.swing.JFrame {
         //6ºTextArea
         try{
             jTextArea6.setText("");
-            jTextArea6.append(escaparate[1][2].toString());
+            jTextArea6.append(Categoria.escaparate[1][2].toString());
         }catch(NullPointerException e){
             if(jTextArea6.equals("")){
                 jTextArea6.setText("");
@@ -455,7 +459,7 @@ public class Main extends javax.swing.JFrame {
                     if(y>2){
                         JOptionPane.showMessageDialog(null, "La posicion no coincide con la matriz", "Precaución", JOptionPane.WARNING_MESSAGE);
                     }else{
-                        escaparate[x][y]=null; 
+                        Categoria.escaparate[x][y]=null; 
                     }
                 }
             }
@@ -463,9 +467,84 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         JFileChooser importar = new  JFileChooser();
-         importar.setVisible(true);
-         importar.showOpenDialog(this);
+        //Declaracion JFileChooser
+        JFileChooser libreria = new JFileChooser();
+        //Mostrar los ficheros y directorios,añadiendo FILES_AND_DIRECTORIES para mostrar ambos
+        libreria.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+ 
+        
+        if (libreria.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+ 
+            //Obtener ruta absoluta donde se encuentra el documento
+            String direccion = libreria.getSelectedFile().getAbsolutePath();
+ 
+            try {
+                //crea el archivo XML
+                DocumentBuilderFactory fábricaCreadorDocumento = DocumentBuilderFactory.newInstance();
+                DocumentBuilder creadorDocumento = fábricaCreadorDocumento.newDocumentBuilder();
+ 
+                //aqui viene la ruta desde variable direccion
+                Document documento = (Document)creadorDocumento.parse(direccion);
+ 
+                //Obtener el elemento raíz del documento
+                Element raiz = documento.getDocumentElement();
+ 
+                //obtiene todo los elementos que tengan la etiqueta libro.
+                NodeList elementosLibros = raiz.getElementsByTagName("libro");
+ 
+                //Recorrer la lista de Libros
+                for (int i = 0; i < elementosLibros.getLength(); i++) {
+                    //Obtener de la lista un Listo y guardarlos
+                    Node libro = elementosLibros.item(i);
+                    Libros añadirLibro = new Libros();
+                    //Obtener la lista de los datos que contiene los Libros ( el libro)
+                    NodeList datosLibros = libro.getChildNodes();
+ 
+                    //Recorrer la lista de los datos que contiene el libro
+                    for (int j = 0; j < datosLibros.getLength(); j++) {
+ 
+                        //Obtener de la lista de datos un dato tras otro
+                        Node dato = datosLibros.item(j);
+ 
+                        //Comprobar que el dato se trata de un nodo de tipo Element
+                        if (dato.getNodeType() == Node.ELEMENT_NODE) {
+ 
+                            //Recoge la informacion de los nodos
+                            if (dato.getNodeName().equalsIgnoreCase("titulo")) {
+                                añadirLibro.setNombre(dato.getFirstChild().getNodeValue());
+                            }
+                            if (dato.getNodeName().equalsIgnoreCase("numero")) {
+                                añadirLibro.setNumero(Integer.valueOf(dato.getFirstChild().getNodeValue()));
+                            }                            
+                            if (dato.getNodeName().equalsIgnoreCase("genero")) {
+                                añadirLibro.setCategoria(dato.getFirstChild().getNodeValue());
+                            }
+                            //En caso de boolean:
+                            if (dato.getNodeName().equalsIgnoreCase("Disponibilidad")) {
+                                String enPos = dato.getFirstChild().getNodeValue();
+                                //Creo una variable booleana para que recoja el String "true" y lo pase como boolean
+                                boolean enPosesion = false;
+                                if (enPos.equals("true")) {
+                                    enPosesion = true;
+                                }
+                                añadirLibro.setDisponible(enPosesion);
+                            }
+                        }
+                    }
+                    //Guarda en las caracteristicas del movil el xml
+                    Categoria.listaLibros.add(añadirLibro);
+                }
+            } catch (SAXException ex) {
+                System.out.println("ERROR: El formato XML del fichero no es correcto\n" + ex.getMessage());
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                System.out.println("ERROR: Se ha producido un error el leer el fichero\n" + ex.getMessage());
+                ex.printStackTrace();
+            } catch (ParserConfigurationException ex) {
+                System.out.println("ERROR: No se ha podido crear el generador de documentos XML\n" + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -485,8 +564,8 @@ public class Main extends javax.swing.JFrame {
                     if(y>2){
                         JOptionPane.showMessageDialog(null, "La posicion no coincide con la matriz", "Precaución", JOptionPane.WARNING_MESSAGE);
                     }else{
-                        escaparate[xfinal][yfinal] = escaparate[x][y];
-                        escaparate[x][y] = null;
+                        Categoria.escaparate[xfinal][yfinal] = Categoria.escaparate[x][y];
+                        Categoria.escaparate[x][y] = null;
                     }
                 }
             }

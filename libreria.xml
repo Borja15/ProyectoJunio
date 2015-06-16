@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libreria>
+	<libro>
+		<titulo>La historia Interminable</titulo>
+		<numero>2353</numero>
+		<disponibilidad>true</disponibilidad>
+		<genero>Fantasia</genero>
+	</libro>
+	<libro>
+		<titulo>Moby dick</titulo>
+		<numero>32423</numero>
+		<disponibilidad>false</disponibilidad>
+		<genero>Novela</genero>
+	</libro>
+</libreria>
