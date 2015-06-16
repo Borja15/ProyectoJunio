@@ -1,0 +1,4 @@
+1 Titulo: Harry Potter Numero 293468 Disponibilidad: true Genero: Fantasia
+2 Titulo: Sherlock Holmes Numero 234789 Disponibilidad: true Genero: Misterio
+3 Titulo: Mortadelo y Filemon Numero 2344444 Disponibilidad: false Genero: Humor
+4 Titulo: Belen Esteban Numero 666 Disponibilidad: true Genero: Biografia
